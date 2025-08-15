@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.pdm.toml
+
+# Virtual environments
+env/
+venv/
+ENV/
+fastapi-env/
+.venv/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Pytest
+.cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# mypy
+.mypy_cache/
+.dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Logs
+*.log
+
+# Uvicorn/Starlette
+*.db
+
+# Misc
+*.sqlite3
+instance/
+
+# Pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Test output
+test-results/
+
+# Local env files
+.env
+.env.*
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Wheel
+*.whl
+
+# Editor backups
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Node (if using frontend)
+node_modules/
