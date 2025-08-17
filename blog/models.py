@@ -9,3 +9,10 @@ class Blog(BlogBase, table=True):
 
 class BlogCreate(BlogBase):
   pass
+
+class BlogUpdate(BlogBase):
+  title: str | None = None
+  body: str | None = None
+
+class BlogPublic(BlogBase):
+  id: int
