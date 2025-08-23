@@ -16,3 +16,23 @@ class BlogUpdate(BlogBase):
 
 class BlogPublic(BlogBase):
   id: int
+
+
+class UserBase(SQLModel):
+  name: str
+  email: str
+
+class User(UserBase, table=True):
+  id: int | None = Field(default=None, primary_key=True)
+  password: str = Field(..., min_length=8)
+
+class UserCreate(UserBase):
+  password: str
+
+class UserUpdate(UserBase):
+  name: str | None = None
+  email: str | None = None
+  password: str | None = None
+
+class UserPublic(UserBase):
+  id: int

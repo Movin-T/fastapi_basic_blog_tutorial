@@ -3,7 +3,8 @@ from fastapi import FastAPI, HTTPException, Query, status
 from sqlmodel import select
 
 from blog.database import SessionDep, create_db_and_tables
-from blog.models import Blog, BlogCreate, BlogPublic, BlogUpdate
+from blog.models import Blog, BlogCreate, BlogPublic, BlogUpdate, User, UserBase, UserCreate, UserPublic
+from blog.hashing import Hash
 
 app = FastAPI()
 
@@ -57,3 +58,11 @@ def update_blog(blog_id: int, request: BlogUpdate, session: SessionDep):
   session.commit()
   session.refresh(blog_db)
   return blog_db
+
+@app.post('/user', response_model=UserPublic)
+def create_user(user: UserCreate, session: SessionDep):
+  db_user = User(name=user.name, email=user.email, password=Hash.bcrypt(user.password))
+  session.add(db_user)
+  session.commit()
+  session.refresh(db_user)
+  return db_user
