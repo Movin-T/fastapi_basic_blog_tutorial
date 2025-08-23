@@ -66,3 +66,10 @@ def create_user(user: UserCreate, session: SessionDep):
   session.commit()
   session.refresh(db_user)
   return db_user
+
+@app.get('/user/{user_id}', response_model=UserPublic)
+def read_user(user_id: int, session: SessionDep):
+  user = session.get(User, user_id)
+  if not user:
+    raise HTTPException(status_code=404, detail="User not found")
+  return user
