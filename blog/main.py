@@ -12,7 +12,7 @@ app = FastAPI()
 def on_startup():
   create_db_and_tables()
 
-@app.post('/blog', response_model=BlogPublic)
+@app.post('/blog', response_model=BlogPublic, tags=["Blogs"])
 def create_blog(request: BlogCreate, session: SessionDep):
   db_blog = Blog.model_validate(request)
   session.add(db_blog)
@@ -20,7 +20,7 @@ def create_blog(request: BlogCreate, session: SessionDep):
   session.refresh(db_blog)
   return db_blog
 
-@app.get('/blog', response_model=list[BlogPublic])
+@app.get('/blog', response_model=list[BlogPublic], tags=["Blogs"])
 def read_blogs(
   session: SessionDep, 
   offset: Annotated[int, Query(ge=0)] = 0,
@@ -31,14 +31,14 @@ def read_blogs(
   ).all()
   return blogs
 
-@app.get('/blog/{blog_id}', response_model=BlogPublic)
+@app.get('/blog/{blog_id}', response_model=BlogPublic, tags=["Blogs"])
 def read_blog(blog_id: int, session: SessionDep):
   blog = session.get(Blog, blog_id)
   if not blog:
     raise HTTPException(status_code=404, detail="Blog not found")
   return blog
 
-@app.delete('/blog/{blog_id}', status_code=status.HTTP_204_NO_CONTENT)
+@app.delete('/blog/{blog_id}', status_code=status.HTTP_204_NO_CONTENT, tags=["Blogs"])
 def delete_blog(blog_id: int, session: SessionDep):
   blog = session.get(Blog, blog_id)
   if not blog:
@@ -47,7 +47,7 @@ def delete_blog(blog_id: int, session: SessionDep):
   session.commit()
   return None
 
-@app.patch('/blog/{blog_id}', response_model=BlogPublic)
+@app.patch('/blog/{blog_id}', response_model=BlogPublic, tags=["Blogs"])
 def update_blog(blog_id: int, request: BlogUpdate, session: SessionDep):
   blog_db = session.get(Blog, blog_id)
   if not blog_db:
@@ -59,7 +59,7 @@ def update_blog(blog_id: int, request: BlogUpdate, session: SessionDep):
   session.refresh(blog_db)
   return blog_db
 
-@app.post('/user', response_model=UserPublic)
+@app.post('/user', response_model=UserPublic, tags=["Users"])
 def create_user(user: UserCreate, session: SessionDep):
   db_user = User(name=user.name, email=user.email, password=Hash.bcrypt(user.password))
   session.add(db_user)
@@ -67,7 +67,7 @@ def create_user(user: UserCreate, session: SessionDep):
   session.refresh(db_user)
   return db_user
 
-@app.get('/user/{user_id}', response_model=UserPublic)
+@app.get('/user/{user_id}', response_model=UserPublic, tags=["Users"])
 def read_user(user_id: int, session: SessionDep):
   user = session.get(User, user_id)
   if not user:
