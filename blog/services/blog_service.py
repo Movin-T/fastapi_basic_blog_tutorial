@@ -9,9 +9,9 @@ class BlogService:
     """Service class for blog-related business logic."""
     
     @staticmethod
-    def create_blog(session: Session, blog_data: BlogCreate) -> Blog:
+    def create_blog(session: Session, blog_data: BlogCreate, author_id: int) -> Blog:
         """Create a new blog post."""
-        db_blog = Blog.model_validate(blog_data)
+        db_blog = Blog(**blog_data.model_dump(), author_id=author_id)
         session.add(db_blog)
         session.commit()
         session.refresh(db_blog)

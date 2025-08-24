@@ -10,7 +10,7 @@ router = APIRouter(prefix='/blog' ,tags=["Blogs"])
 
 @router.post('/', response_model=BlogPublic)
 def create_blog(request: BlogCreate, session: SessionDep, current_user: Annotated[User, Depends(get_current_user)]):
-  return BlogService.create_blog(session, request)
+  return BlogService.create_blog(session, request, current_user.id)
 
 @router.get('/', response_model=list[BlogPublic], )
 def read_blogs(

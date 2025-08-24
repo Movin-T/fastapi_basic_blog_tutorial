@@ -16,7 +16,7 @@ class Blog(BlogBase, table=True):
 
 
 class BlogCreate(BlogBase):
-    author_id: int
+    pass
 
 
 class BlogUpdate(BlogBase):
