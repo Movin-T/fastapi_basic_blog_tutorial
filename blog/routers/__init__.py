@@ -7,5 +7,6 @@ and handle HTTP requests/responses.
 
 from .blog import router as blog_router
 from .user import router as user_router
+from .auth import router as auth_router
 
 __all__ = ["blog_router", "user_router"]
