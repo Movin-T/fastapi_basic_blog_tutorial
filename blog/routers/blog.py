@@ -1,19 +1,20 @@
-from fastapi import APIRouter, Query, status
+from fastapi import APIRouter, Depends, Query, status
 from typing import Annotated
 
-from ..models import BlogPublic, BlogCreate, BlogUpdate
+from ..models import BlogPublic, BlogCreate, BlogUpdate, User
 from ..database import SessionDep
 from ..services import BlogService
+from ..oauth2 import get_current_user
 
 router = APIRouter(prefix='/blog' ,tags=["Blogs"])
 
 @router.post('/', response_model=BlogPublic)
-def create_blog(request: BlogCreate, session: SessionDep):
+def create_blog(request: BlogCreate, session: SessionDep, current_user: Annotated[User, Depends(get_current_user)]):
   return BlogService.create_blog(session, request)
 
-@router.get('/', response_model=list[BlogPublic])
+@router.get('/', response_model=list[BlogPublic], )
 def read_blogs(
-  session: SessionDep, 
+  session: SessionDep,
   offset: Annotated[int, Query(ge=0)] = 0,
   limit: Annotated[int, Query(le=100)] = 100,
 ):

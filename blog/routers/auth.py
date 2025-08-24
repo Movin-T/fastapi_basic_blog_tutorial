@@ -1,6 +1,6 @@
-from fastapi import APIRouter
-from sqlmodel import select
-
+from typing import Annotated
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from ..database import SessionDep
 from ..models import Login, Token
 from ..services import AuthService
@@ -8,5 +8,5 @@ from ..services import AuthService
 router = APIRouter(prefix='/auth', tags=["Authentication"])
 
 @router.post('/login', response_model=Token)
-def login(request: Login, session: SessionDep):
-    return AuthService.authenticate_user(session, request.email, request.password)
+def login(request: Annotated[OAuth2PasswordRequestForm, Depends()], session: SessionDep):
+    return AuthService.authenticate_user(session, request.username, request.password)
