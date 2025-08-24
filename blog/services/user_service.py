@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
-from blog.models import User, UserCreate
+from blog.models import User, UserCreate, UserPublic
 from blog.hashing import Hash
 
 
@@ -49,7 +49,7 @@ class UserService:
         return user
     
     @staticmethod
-    def get_user_for_auth(session: Session, user_id: int) -> User:
+    def get_user_for_auth(session: Session, user_id: int) -> UserPublic:
         """Retrieve user for authentication (without password)."""
         user = session.get(User, user_id)
         if not user:
@@ -57,5 +57,4 @@ class UserService:
                 status_code=status.HTTP_404_NOT_FOUND, 
                 detail="User not found"
             )
-        user.password = ""
-        return user
+        return UserPublic.model_validate(user)

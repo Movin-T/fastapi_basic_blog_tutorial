@@ -1,6 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
+
 from blog.database import SessionDep
 from blog.models import Token
 from blog.services import AuthService

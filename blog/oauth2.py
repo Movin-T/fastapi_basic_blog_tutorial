@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from blog.jwtToken import verify_access_token
 from blog.database import SessionDep
 from blog.services import UserService
-from blog.models import User
+from blog.models import UserPublic
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
@@ -25,4 +25,4 @@ async def get_current_user(
     
     return user
 
-CurrentUserDep = Annotated[User, Depends(get_current_user)]
+CurrentUserDep = Annotated[UserPublic, Depends(get_current_user)]
