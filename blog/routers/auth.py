@@ -1,9 +1,9 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from ..database import SessionDep
-from ..models import Login, Token
-from ..services import AuthService
+from blog.database import SessionDep
+from blog.models import Token
+from blog.services import AuthService
 
 router = APIRouter(prefix='/auth', tags=["Authentication"])
 

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 import jwt
 from jwt.exceptions import InvalidTokenError
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException
 
 from blog.models import TokenData
 

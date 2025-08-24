@@ -1,10 +1,11 @@
 from sqlmodel import Field, Relationship
-from .base import BaseModel
 from typing import TYPE_CHECKING
+
+from blog.models.base import BaseModel
 
 # Avoid circular imports
 if TYPE_CHECKING:
-    from .blog import Blog
+    from blog.models import Blog
 
 
 class UserBase(BaseModel):

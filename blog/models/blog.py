@@ -1,6 +1,7 @@
 from sqlmodel import Field, Relationship
-from .base import BaseModel
-from .user import User, UserBase
+
+from blog.models.base import BaseModel
+from blog.models.user import User, UserBase
 
 
 class BlogBase(BaseModel):

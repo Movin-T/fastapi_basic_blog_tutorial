@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Query, status
 from typing import Annotated
 
-from ..models import BlogPublic, BlogCreate, BlogUpdate, User
-from ..database import SessionDep
-from ..services import BlogService
-from ..oauth2 import CurrentUserDep
+from blog.models import BlogPublic, BlogCreate, BlogUpdate, User
+from blog.database import SessionDep
+from blog.services import BlogService
+from blog.oauth2 import CurrentUserDep
 
 router = APIRouter(prefix='/blog' ,tags=["Blogs"])
 

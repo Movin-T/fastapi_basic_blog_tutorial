@@ -2,9 +2,9 @@ from fastapi import HTTPException, status
 from sqlmodel import Session, select
 from datetime import timedelta
 
-from ..models import User, Token
-from ..hashing import Hash
-from ..jwtToken import create_access_token
+from blog.models import User, Token
+from blog.hashing import Hash
+from blog.jwtToken import create_access_token
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends
 
-from ..database import SessionDep
-from ..models import UserCreate, UserPublic, User
-from ..services import UserService
-from ..oauth2 import get_current_user
+from blog.database import SessionDep
+from blog.models import UserCreate, UserPublic, User
+from blog.services import UserService
+from blog.oauth2 import get_current_user
 
 router = APIRouter(prefix='/user', tags=["Users"])
 

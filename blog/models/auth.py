@@ -1,4 +1,4 @@
-from .base import BaseModel
+from blog.models.base import BaseModel
 
 class Login(BaseModel):
   email: str

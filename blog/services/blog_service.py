@@ -2,7 +2,7 @@ from typing import List
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
-from ..models import Blog, BlogCreate, BlogUpdate, BlogPublic
+from blog.models import Blog, BlogCreate, BlogUpdate, BlogPublic
 
 
 class BlogService:

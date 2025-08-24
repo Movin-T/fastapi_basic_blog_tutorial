@@ -1,8 +1,8 @@
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
-from ..models import User, UserCreate, UserPublic
-from ..hashing import Hash
+from blog.models import User, UserCreate
+from blog.hashing import Hash
 
 
 class UserService:
