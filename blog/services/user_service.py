@@ -47,3 +47,15 @@ class UserService:
                 detail="User not found"
             )
         return user
+    
+    @staticmethod
+    def get_user_for_auth(session: Session, user_id: int) -> User:
+        """Retrieve user for authentication (without password)."""
+        user = session.get(User, user_id)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail="User not found"
+            )
+        user.password = ""
+        return user

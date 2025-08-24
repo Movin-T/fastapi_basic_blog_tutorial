@@ -37,13 +37,19 @@ class BlogService:
         return blog
     
     @staticmethod
-    def update_blog(session: Session, blog_id: int, blog_update: BlogUpdate) -> Blog:
+    def update_blog(session: Session, blog_id: int, blog_update: BlogUpdate, current_user_id: int) -> Blog:
         """Update an existing blog post."""
         blog_db = session.get(Blog, blog_id)
         if not blog_db:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, 
                 detail="Blog not found"
+            )
+        
+        if blog_db.author_id != current_user_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized to update this blog"
             )
         
         blog_data = blog_update.model_dump(exclude_unset=True)
@@ -54,13 +60,19 @@ class BlogService:
         return blog_db
     
     @staticmethod
-    def delete_blog(session: Session, blog_id: int) -> None:
+    def delete_blog(session: Session, blog_id: int, current_user_id: int) -> None:
         """Delete a blog post by ID."""
         blog = session.get(Blog, blog_id)
         if not blog:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, 
                 detail="Blog not found"
+            )
+        
+        if blog.author_id != current_user_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized to delete this blog"
             )
         
         session.delete(blog)
